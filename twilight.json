@@ -1041,6 +1041,16 @@
             "icon": "sicon-store",
             "path": "cart-trust-badges",
             "fields": []
+        },
+        {
+            "key": "d3b982a0-1a98-4fdf-93e2-83d4a6ff68c4",
+            "title": {
+                "en": "featured-products-style2",
+                "ar": "لال"
+            },
+            "icon": "sicon-store",
+            "path": "featured-products-style2",
+            "fields": []
         }
     ],
     "support_url": null,
