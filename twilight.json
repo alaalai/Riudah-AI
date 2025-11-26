@@ -946,6 +946,16 @@
             "icon": "sicon-store",
             "path": "home.flash-sale",
             "fields": []
+        },
+        {
+            "key": "4c7d60ff-651a-49b9-a4fc-142f33991950",
+            "title": {
+                "en": "j",
+                "ar": "لبللا"
+            },
+            "icon": "sicon-store",
+            "path": "sdffg",
+            "fields": []
         }
     ],
     "support_url": null,
