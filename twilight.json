@@ -1031,6 +1031,16 @@
                     "maxLength": 30
                 }
             ]
+        },
+        {
+            "key": "dc87409c-3c16-4594-942b-8ead4ad14d4a",
+            "title": {
+                "en": "cart-trust-badges",
+                "ar": "cart-trust-badge"
+            },
+            "icon": "sicon-store",
+            "path": "cart-trust-badges",
+            "fields": []
         }
     ],
     "support_url": null,
