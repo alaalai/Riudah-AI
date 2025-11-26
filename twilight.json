@@ -936,6 +936,16 @@
             "icon": "sicon-store",
             "path": "featured-products-style2",
             "fields": []
+        },
+        {
+            "key": "cd5beb76-7d42-4bdb-b138-80807bd1632c",
+            "title": {
+                "en": "قسم عروض فلاش",
+                "ar": "قسم عروض فلاش"
+            },
+            "icon": "sicon-store",
+            "path": "home.flash-sale",
+            "fields": []
         }
     ],
     "support_url": null,
