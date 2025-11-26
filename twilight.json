@@ -935,7 +935,29 @@
             },
             "icon": "sicon-store",
             "path": "featured-products-style2",
-            "fields": []
+            "fields": [
+                {
+                    "id": "line",
+                    "type": "static",
+                    "format": "line",
+                    "label": "Line",
+                    "icon": "sicon-minus"
+                },
+                {
+                    "id": "collection",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "Collection",
+                    "description": null,
+                    "labelHTML": null,
+                    "item_label": null,
+                    "icon": "sicon-list-add",
+                    "fields": [],
+                    "value": [],
+                    "minLength": 1,
+                    "maxLength": 5
+                }
+            ]
         },
         {
             "key": "cd5beb76-7d42-4bdb-b138-80807bd1632c",
