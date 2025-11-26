@@ -6,10 +6,7 @@
     "repository": "https://github.com/alaalai/riudah-ai",
     "author_email": "alaal.ai311@gmail.com",
     "features": [
-        "mega-menu",
-        "fonts",
         "color",
-        "breadcrumb",
         "unite-cards-height",
         "component-featured-products",
         "component-fixed-banner",
@@ -22,7 +19,10 @@
         "component-store-features",
         "component-youtube",
         "menu-images",
-        "filters"
+        "filters",
+        "breadcrumb",
+        "fonts",
+        "mega-menu"
     ],
     "settings": [
         {
