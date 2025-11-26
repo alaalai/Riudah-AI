@@ -1,0 +1,22 @@
+{# 
+  Component: Smart Recommendations
+  Description: AI-style "You might also like" section based on current product.
+  Placement: Product Page
+#}
+<section class="smart-recommendations py-12 bg-gray-50">
+    <div class="container">
+        <div class="flex items-center gap-2 mb-8">
+            <i class="sicon-magic-wand text-primary text-2xl"></i>
+            <h2 class="text-2xl font-bold text-gray-900">{{ trans('pages.products.recommended_for_you') }}</h2>
+        </div>
+        
+        <salla-products-slider 
+            source="related" 
+            source-value="{{ product.id }}" 
+            title-hidden="true"
+            limit="8"
+            class="pb-8"
+        >
+        </salla-products-slider>
+    </div>
+</section>

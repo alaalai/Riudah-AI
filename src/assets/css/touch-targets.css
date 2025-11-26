@@ -1,0 +1,17 @@
+/* 
+  Touch Targets
+  Ensures min 44px tap area for accessibility.
+*/
+
+button,
+a,
+input[type="checkbox"],
+input[type="radio"] {
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.touch-target-fix {
+    padding: 12px;
+    margin: -12px;
+}

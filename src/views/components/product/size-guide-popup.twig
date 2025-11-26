@@ -1,0 +1,74 @@
+{# 
+  Component: Size Guide Popup
+  Description: Modal with size chart.
+  Placement: Product Page (Near Size Selector)
+#}
+<div x-data="{ open: false }">
+    <button @click="open = true" class="flex items-center gap-2 text-sm text-gray-500 hover:text-primary transition-colors underline mb-2">
+        <i class="sicon-ruler"></i>
+        {{ trans('pages.products.size_guide') }}
+    </button>
+
+    {# Modal #}
+    <div 
+        x-show="open" 
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        style="display: none;"
+    >
+        <div 
+            class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative"
+            @click.away="open = false"
+        >
+            <button @click="open = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-900">
+                <i class="sicon-cancel text-xl"></i>
+            </button>
+            
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-6 text-center">{{ trans('pages.products.size_chart') }}</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3">Size</th>
+                                <th class="px-6 py-3">Chest (cm)</th>
+                                <th class="px-6 py-3">Waist (cm)</th>
+                                <th class="px-6 py-3">Hips (cm)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b">
+                                <td class="px-6 py-4 font-medium text-gray-900">S</td>
+                                <td class="px-6 py-4">88-92</td>
+                                <td class="px-6 py-4">70-74</td>
+                                <td class="px-6 py-4">94-98</td>
+                            </tr>
+                            <tr class="bg-white border-b">
+                                <td class="px-6 py-4 font-medium text-gray-900">M</td>
+                                <td class="px-6 py-4">96-100</td>
+                                <td class="px-6 py-4">78-82</td>
+                                <td class="px-6 py-4">102-106</td>
+                            </tr>
+                            <tr class="bg-white border-b">
+                                <td class="px-6 py-4 font-medium text-gray-900">L</td>
+                                <td class="px-6 py-4">104-108</td>
+                                <td class="px-6 py-4">86-90</td>
+                                <td class="px-6 py-4">110-114</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-6 bg-blue-50 p-4 rounded-lg flex gap-3">
+                    <i class="sicon-info text-blue-500 mt-1"></i>
+                    <p class="text-xs text-blue-800">
+                        {{ trans('pages.products.size_note') }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+{# 
+  Component: Contact Bar
+  Description: Top bar with phone/email/whatsapp for easy access.
+  Placement: Header Top
+#}
+<div class="contact-bar bg-gray-900 text-white text-xs py-2 hidden md:block">
+    <div class="container flex justify-between items-center">
+        <div class="flex items-center gap-6">
+            {% if store.contacts.mobile %}
+                <a href="tel:{{ store.contacts.mobile }}" class="flex items-center gap-2 hover:text-primary transition-colors">
+                    <i class="sicon-phone"></i>
+                    <span>{{ store.contacts.mobile }}</span>
+                </a>
+            {% endif %}
+            
+            {% if store.contacts.email %}
+                <a href="mailto:{{ store.contacts.email }}" class="flex items-center gap-2 hover:text-primary transition-colors">
+                    <i class="sicon-mail"></i>
+                    <span>{{ store.contacts.email }}</span>
+                </a>
+            {% endif %}
+        </div>
+        
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2">
+                <i class="sicon-shipping-fast text-primary"></i>
+                <span>{{ trans('common.free_shipping_over') }} {{ 500|money }}</span>
+            </div>
+            
+            {% if store.social.whatsapp %}
+                <a href="{{ store.social.whatsapp }}" target="_blank" class="flex items-center gap-2 bg-green-500 text-white px-3 py-1 rounded-full hover:bg-green-600 transition-colors">
+                    <i class="sicon-whatsapp"></i>
+                    <span>{{ trans('common.chat_with_us') }}</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>

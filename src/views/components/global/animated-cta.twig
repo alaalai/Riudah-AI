@@ -1,0 +1,47 @@
+{# 
+  Component: Animated CTA
+  Description: Pulse animation or shine effect on primary buttons.
+  Placement: Global
+#}
+<style>
+    .btn-animated {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-animated::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        transform: skewX(-25deg);
+        animation: shine 3s infinite;
+    }
+    
+    @keyframes shine {
+        0% { left: -100%; }
+        20% { left: 200%; }
+        100% { left: 200%; }
+    }
+    
+    .btn-pulse {
+        animation: pulse-shadow 2s infinite;
+    }
+    
+    @keyframes pulse-shadow {
+        0% { box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(var(--color-primary-rgb), 0); }
+        100% { box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0); }
+    }
+</style>
+
+{# Usage Example #}
+{# <button class="btn btn-primary btn-animated btn-pulse">Add to Cart</button> #}

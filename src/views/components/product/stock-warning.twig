@@ -1,0 +1,16 @@
+{# 
+  Component: Stock Warning
+  Description: "Only X left in stock" message to drive scarcity.
+  Placement: Product Page (Near Quantity)
+#}
+{% if product.quantity > 0 and product.quantity < 10 %}
+<div class="stock-warning flex items-center gap-2 text-orange-600 text-sm font-medium my-3 animate-pulse">
+    <i class="sicon-alert-circle"></i>
+    <span>
+        {{ trans('pages.products.only_left', { count: product.quantity }) }}
+    </span>
+    <div class="h-1.5 w-20 bg-gray-200 rounded-full overflow-hidden">
+        <div class="h-full bg-orange-500 rounded-full" style="width: {{ (product.quantity / 10) * 100 }}%"></div>
+    </div>
+</div>
+{% endif %}

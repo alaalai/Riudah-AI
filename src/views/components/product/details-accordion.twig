@@ -1,0 +1,70 @@
+{# 
+  Component: Details Accordion
+  Description: Collapsible sections for Description, Specs, Shipping.
+  Placement: Product Page
+#}
+<div class="details-accordion border-t border-gray-100 mt-8" x-data="{ active: 'desc' }">
+    {# Description #}
+    <div class="border-b border-gray-100">
+        <button 
+            @click="active = active === 'desc' ? null : 'desc'"
+            class="w-full flex items-center justify-between py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors"
+        >
+            <span>{{ trans('pages.products.description') }}</span>
+            <i class="sicon-keyboard-arrow-down transition-transform duration-300" :class="{ 'rotate-180': active === 'desc' }"></i>
+        </button>
+        <div 
+            x-show="active === 'desc'" 
+            x-collapse
+            class="pb-4 text-gray-600 leading-relaxed text-sm"
+        >
+            {{ product.description|raw }}
+        </div>
+    </div>
+    
+    {# Specifications #}
+    {% if product.specs %}
+    <div class="border-b border-gray-100">
+        <button 
+            @click="active = active === 'specs' ? null : 'specs'"
+            class="w-full flex items-center justify-between py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors"
+        >
+            <span>{{ trans('pages.products.specifications') }}</span>
+            <i class="sicon-keyboard-arrow-down transition-transform duration-300" :class="{ 'rotate-180': active === 'specs' }"></i>
+        </button>
+        <div 
+            x-show="active === 'specs'" 
+            x-collapse
+            class="pb-4"
+        >
+            <ul class="space-y-2">
+                {% for spec in product.specs %}
+                    <li class="flex justify-between text-sm">
+                        <span class="text-gray-500">{{ spec.name }}</span>
+                        <span class="font-medium text-gray-900">{{ spec.value }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    
+    {# Shipping & Returns #}
+    <div class="border-b border-gray-100">
+        <button 
+            @click="active = active === 'shipping' ? null : 'shipping'"
+            class="w-full flex items-center justify-between py-4 text-left font-bold text-gray-900 hover:text-primary transition-colors"
+        >
+            <span>{{ trans('pages.products.shipping_returns') }}</span>
+            <i class="sicon-keyboard-arrow-down transition-transform duration-300" :class="{ 'rotate-180': active === 'shipping' }"></i>
+        </button>
+        <div 
+            x-show="active === 'shipping'" 
+            x-collapse
+            class="pb-4 text-gray-600 text-sm"
+        >
+            <p class="mb-2">{{ trans('pages.products.shipping_info') }}</p>
+            <p>{{ trans('pages.products.returns_info') }}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+{# 
+  Component: Video Gallery
+  Description: Support for product videos in gallery.
+  Placement: Product Page Gallery
+#}
+<div class="video-gallery-item relative aspect-square bg-black rounded-xl overflow-hidden group cursor-pointer">
+    {% if product.video_url %}
+        <video 
+            src="{{ product.video_url }}" 
+            class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+            poster="{{ product.image.url }}"
+            muted
+            loop
+            playsinline
+            onmouseover="this.play()"
+            onmouseout="this.pause()"
+        ></video>
+        
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i class="sicon-play-fill text-white text-xl ml-1"></i>
+            </div>
+        </div>
+        
+        <span class="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded font-bold">
+            VIDEO
+        </span>
+    {% endif %}
+</div>

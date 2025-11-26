@@ -1,0 +1,66 @@
+<header class="w-full bg-white shadow sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+
+        {# Logo #}
+        <a href="{{ store.url }}" class="flex items-center gap-2">
+            {% if store.logo %}
+                <img src="{{ store.logo }}" alt="{{ store.name }}" class="h-10 w-auto">
+            {% else %}
+                <span class="text-xl font-bold">{{ store.name }}</span>
+            {% endif %}
+        </a>
+
+        {# Desktop Menu #}
+        <nav class="hidden md:flex items-center gap-6 text-gray-700">
+            {% for category in categories %}
+                <a href="{{ category.url }}" class="hover:text-primary transition">
+                    {{ category.name }}
+                </a>
+            {% endfor %}
+        </nav>
+
+        {# Icons #}
+        <div class="flex items-center gap-4 text-gray-600">
+
+            {# Search #}
+            <a href="/search" class="hover:text-primary transition">
+                <i class="sicon-search text-xl"></i>
+            </a>
+
+            {# User Account #}
+            <a href="/account" class="hover:text-primary transition">
+                <i class="sicon-user text-xl"></i>
+            </a>
+
+            {# Cart #}
+            <a href="/cart" class="relative hover:text-primary transition">
+                <i class="sicon-cart text-xl"></i>
+
+                {% if cart.count > 0 %}
+                    <span class="absolute -top-2 -right-2 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                        {{ cart.count }}
+                    </span>
+                {% endif %}
+            </a>
+
+        </div>
+
+        {# Mobile Menu Button #}
+        <button class="md:hidden text-2xl" id="mobileMenuBtn">
+            <i class="sicon-menu"></i>
+        </button>
+
+    </div>
+
+    {# Mobile Menu Drawer #}
+    <div id="mobileMenu"
+         class="hidden md:hidden bg-white border-t shadow p-4">
+
+        {% for category in categories %}
+            <a href="{{ category.url }}" class="block py-2 text-gray-700 border-b">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+    </div>
+</header>
+

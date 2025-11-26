@@ -1,0 +1,28 @@
+{# 
+  Component: Free Shipping Bar
+  Description: Progress bar "Add X more for free shipping".
+  Placement: Cart Drawer / Cart Page
+#}
+{% set free_shipping_threshold = 500 %}
+{% set current_total = cart.sub_total %}
+{% set remaining = free_shipping_threshold - current_total %}
+{% set percent = (current_total / free_shipping_threshold) * 100 %}
+
+<div class="free-shipping-bar px-4 py-3 bg-gray-50 border-b border-gray-100">
+    {% if remaining > 0 %}
+        <p class="text-sm text-gray-600 mb-2 text-center">
+            {{ trans('pages.cart.free_shipping_alert', {'amount': remaining|money}) }}
+        </p>
+        <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div class="h-full bg-primary transition-all duration-500" style="width: {{ percent }}%"></div>
+        </div>
+    {% else %}
+        <p class="text-sm text-green-600 font-bold text-center flex items-center justify-center gap-2">
+            <i class="sicon-shipping-fast"></i>
+            {{ trans('pages.cart.free_shipping_qualified') }}
+        </p>
+        <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div class="h-full bg-green-500 w-full"></div>
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,33 @@
+{# 
+  Component: Cart Timer
+  Description: "Your cart is reserved for 10:00" to reduce abandonment.
+  Placement: Cart Page / Mini Cart
+#}
+<div class="cart-timer bg-blue-50 border-b border-blue-100 p-3 text-center">
+    <p class="text-sm text-blue-800">
+        {{ trans('pages.cart.items_reserved') }} 
+        <span class="font-bold font-mono" id="cart-countdown">10:00</span>
+    </p>
+</div>
+
+<script>
+    (function() {
+        let duration = 600; // 10 minutes
+        const display = document.querySelector('#cart-countdown');
+        
+        if(display) {
+            const timer = setInterval(() => {
+                const minutes = parseInt(duration / 60, 10);
+                const seconds = parseInt(duration % 60, 10);
+                
+                display.textContent = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+                
+                if (--duration < 0) {
+                    clearInterval(timer);
+                    display.textContent = "00:00";
+                    // Optional: Refresh page or clear cart
+                }
+            }, 1000);
+        }
+    })();
+</script>

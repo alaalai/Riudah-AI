@@ -1,0 +1,65 @@
+{# 
+  Component: Countdown Timer
+  Description: Timer for special offers on product page to create urgency.
+  Placement: Product Page (Near Price/ATC)
+#}
+{% if product.is_on_sale and product.sale_end_date %}
+<div class="countdown-timer bg-red-50 border border-red-100 rounded-lg p-4 my-4"
+     data-date="{{ product.sale_end_date }}">
+    <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-2 text-red-600">
+            <i class="sicon-fire"></i>
+            <span class="font-bold text-sm">{{ trans('pages.products.offer_ends_in') }}</span>
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-4 gap-2 text-center">
+        <div class="bg-white rounded p-2 shadow-sm">
+            <span class="block text-xl font-bold text-gray-900 days">00</span>
+            <span class="text-[10px] text-gray-500 uppercase">{{ trans('common.days') }}</span>
+        </div>
+        <div class="bg-white rounded p-2 shadow-sm">
+            <span class="block text-xl font-bold text-gray-900 hours">00</span>
+            <span class="text-[10px] text-gray-500 uppercase">{{ trans('common.hours') }}</span>
+        </div>
+        <div class="bg-white rounded p-2 shadow-sm">
+            <span class="block text-xl font-bold text-gray-900 minutes">00</span>
+            <span class="text-[10px] text-gray-500 uppercase">{{ trans('common.minutes') }}</span>
+        </div>
+        <div class="bg-white rounded p-2 shadow-sm">
+            <span class="block text-xl font-bold text-red-600 seconds">00</span>
+            <span class="text-[10px] text-gray-500 uppercase">{{ trans('common.seconds') }}</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Simple vanilla JS countdown logic
+    document.querySelectorAll('.countdown-timer').forEach(timer => {
+        const endDate = new Date(timer.dataset.date).getTime();
+        
+        const updateTimer = () => {
+            const now = new Date().getTime();
+            const distance = endDate - now;
+            
+            if (distance < 0) {
+                timer.style.display = 'none';
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            timer.querySelector('.days').innerText = String(days).padStart(2, '0');
+            timer.querySelector('.hours').innerText = String(hours).padStart(2, '0');
+            timer.querySelector('.minutes').innerText = String(minutes).padStart(2, '0');
+            timer.querySelector('.seconds').innerText = String(seconds).padStart(2, '0');
+        };
+        
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    });
+</script>
+{% endif %}

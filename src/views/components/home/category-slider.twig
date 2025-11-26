@@ -1,0 +1,31 @@
+{# 
+  Component: Category Slider
+  Description: Visual slider for top categories to improve navigation.
+  Placement: Homepage
+#}
+<section class="category-slider py-10">
+    <div class="container">
+        <div class="flex justify-between items-end mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">{{ trans('blocks.home.browse_categories') }}</h2>
+            <a href="{{ link('categories') }}" class="text-sm font-bold text-primary hover:underline">
+                {{ trans('common.view_all') }}
+            </a>
+        </div>
+        
+        <salla-slider type="carousel" slides-per-view="auto" space-between="16" class="category-carousel">
+            <div slot="items" class="flex">
+                {% for category in categories %}
+                    <div class="swiper-slide w-28 md:w-40">
+                        <a href="{{ category.url }}" class="group block text-center">
+                            <div class="relative w-28 h-28 md:w-40 md:h-40 rounded-full overflow-hidden mb-3 border-2 border-transparent group-hover:border-primary transition-all duration-300">
+                                <img src="{{ category.image }}" alt="{{ category.name }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-sm group-hover:text-primary transition-colors">{{ category.name }}</h3>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </salla-slider>
+    </div>
+</section>

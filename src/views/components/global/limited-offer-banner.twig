@@ -1,0 +1,41 @@
+{# 
+  Component: Limited Offer Banner
+  Description: Sticky banner for site-wide sales.
+  Placement: Fixed Bottom or Top
+#}
+<div class="limited-offer-banner fixed bottom-0 left-0 right-0 bg-gray-900 text-white py-3 z-50 transform translate-y-full transition-transform duration-500" id="sticky-offer-banner">
+    <div class="container flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <div class="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded animate-pulse">
+                {{ trans('common.limited_time') }}
+            </div>
+            <p class="text-sm font-medium">
+                {{ trans('common.special_offer_text') }} 
+                <span class="text-yellow-400 font-bold">50% {{ trans('common.off') }}</span>
+            </p>
+        </div>
+        
+        <div class="flex items-center gap-4">
+            <div class="hidden md:flex items-center gap-2 text-xs text-gray-400">
+                <span>{{ trans('common.ends_in') }}:</span>
+                <span class="font-mono text-white text-sm" id="global-timer">02:14:55</span>
+            </div>
+            <a href="{{ link('offers') }}" class="bg-white text-gray-900 text-xs font-bold px-4 py-2 rounded hover:bg-gray-100 transition-colors">
+                {{ trans('common.shop_now') }}
+            </a>
+            <button class="text-gray-400 hover:text-white" onclick="document.getElementById('sticky-offer-banner').remove()">
+                <i class="sicon-cancel"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Show banner after scroll
+    window.addEventListener('scroll', () => {
+        const banner = document.getElementById('sticky-offer-banner');
+        if (window.scrollY > 300) {
+            banner.classList.remove('translate-y-full');
+        }
+    });
+</script>

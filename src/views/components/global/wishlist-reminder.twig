@@ -1,0 +1,33 @@
+{# 
+  Component: Wishlist Reminder
+  Description: Notification if wishlist item is low stock (mocked).
+  Placement: Global Toast
+#}
+<div 
+    id="wishlist-toast"
+    class="fixed top-24 right-4 z-50 bg-white shadow-lg rounded-lg p-4 border-l-4 border-orange-500 max-w-xs transform translate-x-full transition-transform duration-500"
+>
+    <div class="flex items-start gap-3">
+        <div class="w-10 h-10 rounded bg-gray-100 overflow-hidden shrink-0">
+            <img src="{{ 'images/product-placeholder.jpg' | asset }}" class="w-full h-full object-cover">
+        </div>
+        <div class="flex-1">
+            <p class="text-xs font-bold text-gray-900 mb-1">{{ trans('common.wishlist_alert') }}</p>
+            <p class="text-xs text-gray-500 mb-2">{{ trans('common.low_stock_msg') }}</p>
+            <a href="{{ link('wishlist') }}" class="text-xs font-bold text-orange-500 hover:underline">
+                {{ trans('common.view_wishlist') }}
+            </a>
+        </div>
+        <button onclick="this.parentElement.parentElement.remove()" class="text-gray-400 hover:text-gray-900">
+            <i class="sicon-cancel"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+    // Mock trigger
+    setTimeout(() => {
+        const toast = document.getElementById('wishlist-toast');
+        if(toast) toast.classList.remove('translate-x-full');
+    }, 15000);
+</script>

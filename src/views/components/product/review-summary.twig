@@ -1,0 +1,15 @@
+{# 
+  Component: Review Summary
+  Description: Star rating summary near title.
+  Placement: Product Page Header
+#}
+<div class="review-summary flex items-center gap-2 mb-2">
+    <div class="flex text-yellow-400 text-sm">
+        {% for i in 1..5 %}
+            <i class="sicon-star-fill {{ i <= product.rating ? '' : 'text-gray-200' }}"></i>
+        {% endfor %}
+    </div>
+    <a href="#reviews" class="text-xs text-gray-500 hover:text-primary underline">
+        {{ product.rating_count }} {{ trans('pages.products.reviews') }}
+    </a>
+</div>

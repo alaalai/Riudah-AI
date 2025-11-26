@@ -1,0 +1,22 @@
+{# 
+  Component: WhatsApp Float
+  Description: Floating WhatsApp chat button.
+  Placement: Global Fixed Bottom Right
+#}
+{% if store.social.whatsapp %}
+<a 
+    href="{{ store.social.whatsapp }}" 
+    target="_blank" 
+    class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 hover:scale-110 transition-all duration-300 group"
+>
+    <i class="sicon-whatsapp text-3xl"></i>
+    
+    {# Tooltip #}
+    <span class="absolute right-full mr-4 bg-white text-gray-800 text-xs font-bold px-3 py-2 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+        {{ trans('common.chat_with_us') }}
+    </span>
+    
+    {# Notification Dot #}
+    <span class="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
+</a>
+{% endif %}

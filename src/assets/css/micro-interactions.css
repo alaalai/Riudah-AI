@@ -1,0 +1,26 @@
+/* 
+  Micro Interactions
+  Hover effects and active states.
+*/
+
+.hover-lift {
+    transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+}
+
+.hover-scale {
+    transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.02);
+}
+
+.btn-press:active {
+    transform: scale(0.98);
+}
+
+/* Ripple effect could be added via JS, but CSS active state is often enough */

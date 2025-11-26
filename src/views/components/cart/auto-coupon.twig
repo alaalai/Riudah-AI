@@ -1,0 +1,19 @@
+{# 
+  Component: Auto Coupon
+  Description: Link to apply best available coupon.
+  Placement: Cart Page
+#}
+<div class="auto-coupon bg-yellow-50 border border-yellow-100 rounded-lg p-3 flex items-center justify-between mb-4">
+    <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
+            <i class="sicon-discount"></i>
+        </div>
+        <div>
+            <p class="text-xs font-bold text-gray-900">{{ trans('pages.cart.best_coupon_found') }}</p>
+            <p class="text-xs text-gray-500">SAVE20 (-20%)</p>
+        </div>
+    </div>
+    <button class="text-primary text-xs font-bold hover:underline">
+        {{ trans('pages.cart.apply_coupon') }}
+    </button>
+</div>

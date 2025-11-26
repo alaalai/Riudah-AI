@@ -1,0 +1,29 @@
+{# 
+  Component: New Arrivals Ticker
+  Description: Scrolling ticker announcing new drops.
+  Placement: Below Header
+#}
+<div class="new-arrivals-ticker bg-black text-white overflow-hidden py-2">
+    <div class="animate-marquee whitespace-nowrap flex gap-8">
+        {% for i in 1..10 %}
+            <span class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                {{ trans('common.new_collection_drop') }}
+                <span class="text-gray-500 mx-2">|</span>
+            </span>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+        animation: marquee 20s linear infinite;
+    }
+    .animate-marquee:hover {
+        animation-play-state: paused;
+    }
+</style>

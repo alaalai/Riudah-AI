@@ -1,0 +1,25 @@
+/* 
+  Premium Palette
+  Define premium color variables.
+*/
+
+:root {
+    --color-gold: #D4AF37;
+    --color-gold-light: #F4DF4E;
+    --color-dark-blue: #0A192F;
+    --color-charcoal: #121212;
+    --color-off-white: #F9FAFB;
+}
+
+.bg-premium-dark {
+    background-color: var(--color-dark-blue);
+    color: white;
+}
+
+.text-gold {
+    color: var(--color-gold);
+}
+
+.border-gold {
+    border-color: var(--color-gold);
+}

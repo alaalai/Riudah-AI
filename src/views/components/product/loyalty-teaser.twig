@@ -1,0 +1,18 @@
+{# 
+  Component: Loyalty Teaser
+  Description: "Earn X points with this purchase".
+  Placement: Product Page
+#}
+<div class="loyalty-teaser flex items-center gap-3 bg-purple-50 border border-purple-100 rounded-lg p-3 my-4">
+    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
+        <i class="sicon-star-fill"></i>
+    </div>
+    <div>
+        <p class="text-xs text-purple-900 font-bold">
+            {{ trans('pages.products.earn_points', {'points': (product.price / 10)|round }) }}
+        </p>
+        <p class="text-[10px] text-purple-700">
+            {{ trans('pages.products.loyalty_desc') }}
+        </p>
+    </div>
+</div>

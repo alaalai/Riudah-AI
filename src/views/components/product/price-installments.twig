@@ -1,0 +1,30 @@
+{# 
+  Component: Price Installments
+  Description: "Pay in 4 installments" info (Tabby/Tamara).
+  Placement: Product Page (Below Price)
+#}
+<div class="price-installments flex flex-col gap-2 my-4 border border-gray-100 rounded-lg p-3">
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <img src="{{ 'images/payment/tabby.svg' | asset }}" alt="Tabby" class="h-5 w-auto">
+            <p class="text-xs text-gray-600">
+                {{ trans('common.split_in_4') }} 
+                <strong class="text-gray-900">{{ (product.price / 4)|money }}</strong>
+            </p>
+        </div>
+        <i class="sicon-info text-gray-400 text-xs"></i>
+    </div>
+    
+    <div class="w-full h-px bg-gray-100"></div>
+    
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <img src="{{ 'images/payment/tamara.svg' | asset }}" alt="Tamara" class="h-5 w-auto">
+            <p class="text-xs text-gray-600">
+                {{ trans('common.split_in_3') }} 
+                <strong class="text-gray-900">{{ (product.price / 3)|money }}</strong>
+            </p>
+        </div>
+        <i class="sicon-info text-gray-400 text-xs"></i>
+    </div>
+</div>

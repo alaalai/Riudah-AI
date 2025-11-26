@@ -1,0 +1,31 @@
+{# 
+  Component: Trust Badges
+  Description: Displays payment and security badges to increase trust on product pages.
+  Placement: Below Add to Cart button
+#}
+<div class="trust-badges mt-6 border-t border-gray-100 pt-4">
+    <p class="text-sm text-gray-500 mb-3 text-center">{{ trans('pages.products.guaranteed_safe_checkout') }}</p>
+    <div class="flex flex-wrap justify-center gap-3 items-center grayscale hover:grayscale-0 transition-all duration-300">
+        {# Payment Icons - Using Salla's built-in icons or SVGs #}
+        <div class="flex items-center gap-2">
+            <img src="{{ 'images/payment/mada.svg' | asset }}" alt="Mada" class="h-6 w-auto" loading="lazy">
+            <img src="{{ 'images/payment/visa.svg' | asset }}" alt="Visa" class="h-6 w-auto" loading="lazy">
+            <img src="{{ 'images/payment/mastercard.svg' | asset }}" alt="Mastercard" class="h-6 w-auto" loading="lazy">
+            <img src="{{ 'images/payment/apple-pay.svg' | asset }}" alt="Apple Pay" class="h-6 w-auto" loading="lazy">
+        </div>
+        
+        <div class="h-4 w-px bg-gray-300 mx-2 hidden sm:block"></div>
+        
+        {# Security Badges #}
+        <div class="flex items-center gap-3 text-xs text-gray-500">
+            <div class="flex items-center gap-1">
+                <i class="sicon-shield-check text-green-500 text-lg"></i>
+                <span>{{ trans('common.ssl_secured') }}</span>
+            </div>
+            <div class="flex items-center gap-1">
+                <i class="sicon-lock text-blue-500 text-lg"></i>
+                <span>{{ trans('common.encrypted_payment') }}</span>
+            </div>
+        </div>
+    </div>
+</div>

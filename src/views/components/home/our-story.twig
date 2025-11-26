@@ -1,0 +1,59 @@
+{# 
+  Component: Our Story
+  Description: Section highlighting brand values and origin to build connection.
+  Placement: Homepage
+#}
+<section class="our-story py-16 overflow-hidden relative">
+    <div class="absolute inset-0 bg-primary opacity-5 pointer-events-none"></div>
+    <div class="container">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="relative group">
+                <div class="absolute -inset-4 bg-gradient-to-r from-primary to-secondary opacity-20 blur-lg rounded-2xl transform rotate-2 group-hover:rotate-1 transition-all duration-500"></div>
+                <img src="{{ 'images/brand-story.jpg' | asset }}" alt="{{ store.name }}" class="relative rounded-2xl shadow-xl w-full object-cover h-[400px] transform group-hover:-translate-y-1 transition-transform duration-500">
+                
+                <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg max-w-xs hidden md:block animate-float">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl font-bold text-primary">10+</div>
+                        <div class="text-sm text-gray-600 font-medium">{{ trans('blocks.story.years_experience') }}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-6">
+                <span class="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full tracking-wider uppercase">
+                    {{ trans('blocks.story.about_us') }}
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                    {{ trans('blocks.story.title') }}
+                </h2>
+                <p class="text-gray-600 leading-relaxed text-lg">
+                    {{ trans('blocks.story.description') }}
+                </p>
+                
+                <div class="grid grid-cols-2 gap-6 pt-4">
+                    <div class="flex flex-col gap-2">
+                        <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 mb-2">
+                            <i class="sicon-star-fill text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900">{{ trans('blocks.story.quality_title') }}</h4>
+                        <p class="text-sm text-gray-500">{{ trans('blocks.story.quality_desc') }}</p>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <div class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center text-green-600 mb-2">
+                            <i class="sicon-handshake text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900">{{ trans('blocks.story.service_title') }}</h4>
+                        <p class="text-sm text-gray-500">{{ trans('blocks.story.service_desc') }}</p>
+                    </div>
+                </div>
+                
+                <div class="pt-6">
+                    <a href="{{ link('pages/about') }}" class="inline-flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
+                        {{ trans('common.read_more') }}
+                        <i class="sicon-arrow-left rtl:rotate-180"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

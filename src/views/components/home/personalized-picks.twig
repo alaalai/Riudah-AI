@@ -1,0 +1,34 @@
+{# 
+  Component: Personalized Picks
+  Description: "Picked for you" section based on history.
+  Placement: Homepage
+#}
+<section class="personalized-picks py-12 bg-white border-t border-gray-100">
+    <div class="container">
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h2 class="text-xl font-bold text-gray-900">
+                    {{ user.name ? trans('blocks.picks.title_user', {name: user.name}) : trans('blocks.picks.title_guest') }}
+                </h2>
+                <p class="text-sm text-gray-500">{{ trans('blocks.picks.subtitle') }}</p>
+            </div>
+            <a href="{{ link('products') }}" class="text-primary text-sm font-bold">{{ trans('common.see_all') }}</a>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {# Mock Logic: In reality, this would use Salla's recommendation API #}
+            {% for product in products|shuffle|slice(0, 5) %}
+                <div class="bg-gray-50 rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer group">
+                    <div class="aspect-square rounded overflow-hidden mb-3 relative">
+                        <img src="{{ product.image.url }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute top-2 right-2 bg-white rounded-full p-1 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="sicon-heart text-gray-400 hover:text-red-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xs font-bold text-gray-900 truncate">{{ product.name }}</h3>
+                    <p class="text-xs text-primary font-bold mt-1">{{ product.price|money }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

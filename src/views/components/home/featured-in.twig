@@ -1,0 +1,24 @@
+{# 
+  Component: Featured In
+  Description: Logos of media/partners where brand was featured to establish authority.
+  Placement: Homepage / Footer
+#}
+<section class="featured-in py-10 border-t border-b border-gray-100 bg-white">
+    <div class="container">
+        <p class="text-center text-sm font-medium text-gray-400 uppercase tracking-widest mb-8">
+            {{ trans('blocks.featured_in.title') }}
+        </p>
+        
+        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+            {% for partner in partners %}
+                <img src="{{ partner.logo }}" alt="{{ partner.name }}" class="h-8 md:h-10 w-auto object-contain hover:scale-110 transition-transform duration-300" loading="lazy">
+            {% else %}
+                {# Fallback placeholders if no dynamic data #}
+                <div class="h-8 bg-gray-200 w-24 rounded"></div>
+                <div class="h-8 bg-gray-200 w-24 rounded"></div>
+                <div class="h-8 bg-gray-200 w-24 rounded"></div>
+                <div class="h-8 bg-gray-200 w-24 rounded"></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

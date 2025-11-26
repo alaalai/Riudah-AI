@@ -1,0 +1,18 @@
+/* 
+  Thumb Zones Optimization
+  Ensures primary actions are within easy reach on mobile.
+*/
+
+@media (max-width: 768px) {
+    .thumb-friendly-cta {
+        position: fixed;
+        bottom: 80px; /* Above mobile nav */
+        left: 1rem;
+        right: 1rem;
+        z-index: 40;
+    }
+    
+    .thumb-zone-safe {
+        padding-bottom: 80px;
+    }
+}

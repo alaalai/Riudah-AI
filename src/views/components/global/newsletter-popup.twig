@@ -1,0 +1,74 @@
+{# 
+  Component: Newsletter Popup
+  Description: Email capture popup with discount.
+  Placement: Global
+#}
+<div 
+    id="newsletter-popup"
+    class="fixed inset-0 z-[70] flex items-center justify-center p-4 invisible opacity-0 transition-all duration-500"
+    style="display: none;"
+>
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeNewsletterPopup()"></div>
+    
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl relative overflow-hidden flex flex-col md:flex-row transform scale-90 transition-transform duration-500">
+        <button onclick="closeNewsletterPopup()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-900 z-10">
+            <i class="sicon-cancel text-xl"></i>
+        </button>
+        
+        <div class="md:w-1/2 bg-gray-100 relative min-h-[300px]">
+            <img src="{{ 'images/newsletter-bg.jpg' | asset }}" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+                <div class="text-white text-center p-6">
+                    <p class="text-5xl font-bold mb-2">15%</p>
+                    <p class="text-xl font-light uppercase tracking-widest">{{ trans('common.off') }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="p-8 md:w-1/2 flex flex-col justify-center text-center md:text-left">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ trans('common.join_newsletter') }}</h3>
+            <p class="text-gray-500 text-sm mb-6">{{ trans('common.newsletter_desc') }}</p>
+            
+            <form action="/newsletter/subscribe" method="POST" class="space-y-3">
+                <input 
+                    type="email" 
+                    name="email" 
+                    placeholder="{{ trans('common.email_placeholder') }}" 
+                    class="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-shadow"
+                    required
+                >
+                <button type="submit" class="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors">
+                    {{ trans('common.subscribe_now') }}
+                </button>
+            </form>
+            
+            <p class="text-xs text-gray-400 mt-4 text-center">
+                {{ trans('common.no_spam_guarantee') }}
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Show popup after 5 seconds, only once per session
+    if (!sessionStorage.getItem('newsletterShown')) {
+        setTimeout(() => {
+            const popup = document.getElementById('newsletter-popup');
+            popup.style.display = 'flex';
+            setTimeout(() => {
+                popup.classList.remove('invisible', 'opacity-0');
+                popup.querySelector('div.transform').classList.remove('scale-90');
+            }, 10);
+            sessionStorage.setItem('newsletterShown', 'true');
+        }, 5000);
+    }
+    
+    const closeNewsletterPopup = () => {
+        const popup = document.getElementById('newsletter-popup');
+        popup.classList.add('invisible', 'opacity-0');
+        popup.querySelector('div.transform').classList.add('scale-90');
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 500);
+    };
+</script>

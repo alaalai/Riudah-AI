@@ -1,0 +1,29 @@
+{# 
+  Component: Viewing Count
+  Description: "X people are viewing this right now" to create social pressure/FOMO.
+  Placement: Product Page
+#}
+<div class="viewing-count flex items-center gap-2 text-sm text-gray-600 my-2" id="viewing-count-{{ product.id }}">
+    <i class="sicon-eye text-gray-400"></i>
+    <span>
+        <strong class="text-gray-900" id="view-count-number">12</strong> 
+        {{ trans('pages.products.people_viewing') }}
+    </span>
+</div>
+
+<script>
+    // Mock random number generator for "Live" feel
+    (function() {
+        const countElement = document.getElementById('view-count-number');
+        if(countElement) {
+            let count = Math.floor(Math.random() * (30 - 5 + 1) + 5);
+            countElement.innerText = count;
+            
+            setInterval(() => {
+                const change = Math.floor(Math.random() * 5) - 2; // -2 to +2
+                count = Math.max(3, count + change);
+                countElement.innerText = count;
+            }, 5000);
+        }
+    })();
+</script>

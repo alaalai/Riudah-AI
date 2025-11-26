@@ -1,0 +1,27 @@
+{# 
+  Component: Shipping Calculator
+  Description: Estimate shipping cost in cart.
+  Placement: Cart Page
+#}
+<div class="shipping-calculator border border-gray-100 rounded-lg p-4 mt-4" x-data="{ open: false }">
+    <button @click="open = !open" class="flex items-center justify-between w-full text-sm font-bold text-gray-700">
+        <span>{{ trans('pages.cart.estimate_shipping') }}</span>
+        <i class="sicon-keyboard-arrow-down transition-transform" :class="{ 'rotate-180': open }"></i>
+    </button>
+    
+    <div x-show="open" class="mt-4 space-y-3">
+        <select class="w-full border-gray-200 rounded-lg text-sm">
+            <option>{{ trans('common.select_country') }}</option>
+            <option value="SA">Saudi Arabia</option>
+            <option value="AE">UAE</option>
+        </select>
+        <select class="w-full border-gray-200 rounded-lg text-sm">
+            <option>{{ trans('common.select_city') }}</option>
+            <option value="Riyadh">Riyadh</option>
+            <option value="Jeddah">Jeddah</option>
+        </select>
+        <button class="w-full bg-gray-100 text-gray-800 font-bold py-2 rounded-lg text-sm hover:bg-gray-200 transition-colors">
+            {{ trans('common.calculate') }}
+        </button>
+    </div>
+</div>

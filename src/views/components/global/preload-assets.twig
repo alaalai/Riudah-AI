@@ -1,0 +1,13 @@
+{# 
+  Component: Preload Assets
+  Description: Preload critical fonts/LCP images.
+  Placement: Head
+#}
+<link rel="preload" href="{{ 'fonts/sallaicons.woff2' | asset }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ 'css/app.css' | asset }}" as="style">
+<link rel="preload" href="{{ 'js/app.js' | asset }}" as="script">
+
+{# Preload LCP Image if on Product Page #}
+{% if page.object_type == 'product' %}
+    <link rel="preload" href="{{ product.image.url }}" as="image">
+{% endif %}

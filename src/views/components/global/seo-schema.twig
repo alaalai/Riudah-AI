@@ -1,0 +1,38 @@
+{# 
+  Component: SEO Schema
+  Description: JSON-LD structured data for products.
+  Placement: Head
+#}
+{% if page.object_type == 'product' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.name }}",
+  "image": [
+    "{{ product.image.url }}"
+  ],
+  "description": "{{ product.description|striptags }}",
+  "sku": "{{ product.sku }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "{{ store.name }}"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ product.url }}",
+    "priceCurrency": "{{ store.currency }}",
+    "price": "{{ product.price }}",
+    "availability": "https://schema.org/{{ product.is_available ? 'InStock' : 'OutOfStock' }}",
+    "itemCondition": "https://schema.org/NewCondition"
+  },
+  {% if product.rating_count > 0 %}
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ product.rating }}",
+    "reviewCount": "{{ product.rating_count }}"
+  }
+  {% endif %}
+}
+</script>
+{% endif %}

@@ -1,0 +1,42 @@
+{# 
+  Component: Sticky ATC
+  Description: Sticky bar with ATC button on scroll.
+  Placement: Product Page (Fixed Bottom)
+#}
+<div class="sticky-atc fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] py-3 px-4 z-40 transform translate-y-full transition-transform duration-300 md:hidden" id="sticky-atc-bar">
+    <div class="flex items-center gap-4">
+        <div class="hidden sm:block w-12 h-12 rounded overflow-hidden">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
+        </div>
+        
+        <div class="flex-1">
+            <h4 class="font-bold text-sm text-gray-900 truncate max-w-[150px]">{{ product.name }}</h4>
+            <p class="text-primary font-bold text-sm">{{ product.price|money }}</p>
+        </div>
+        
+        <button 
+            class="bg-primary text-white px-6 py-3 rounded-lg font-bold text-sm shadow-lg hover:bg-primary-dark transition-colors flex items-center gap-2"
+            onclick="document.querySelector('.product-add-to-cart-btn').click()"
+        >
+            <i class="sicon-shopping-bag"></i>
+            {{ trans('pages.cart.add_to_cart') }}
+        </button>
+    </div>
+</div>
+
+<script>
+    // Show sticky ATC when main ATC scrolls out of view
+    const mainAtc = document.querySelector('.product-add-to-cart-btn');
+    const stickyAtc = document.getElementById('sticky-atc-bar');
+    
+    if (mainAtc && stickyAtc) {
+        window.addEventListener('scroll', () => {
+            const rect = mainAtc.getBoundingClientRect();
+            if (rect.bottom < 0) {
+                stickyAtc.classList.remove('translate-y-full');
+            } else {
+                stickyAtc.classList.add('translate-y-full');
+            }
+        });
+    }
+</script>

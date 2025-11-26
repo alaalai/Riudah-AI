@@ -1,0 +1,37 @@
+{# 
+  Component: Mobile Nav Bar
+  Description: App-like bottom navigation.
+  Placement: Global Fixed Bottom (Mobile Only)
+#}
+<div class="mobile-nav-bar fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 md:hidden pb-safe">
+    <div class="grid grid-cols-5 h-16">
+        <a href="{{ link('home') }}" class="flex flex-col items-center justify-center text-gray-400 hover:text-primary {{ is_page('home') ? 'text-primary' : '' }}">
+            <i class="sicon-home text-xl mb-1"></i>
+            <span class="text-[10px] font-medium">{{ trans('common.home') }}</span>
+        </a>
+        
+        <a href="{{ link('categories') }}" class="flex flex-col items-center justify-center text-gray-400 hover:text-primary">
+            <i class="sicon-layout-grid text-xl mb-1"></i>
+            <span class="text-[10px] font-medium">{{ trans('common.categories') }}</span>
+        </a>
+        
+        <div class="relative -top-5">
+            <a href="{{ link('cart') }}" class="flex items-center justify-center w-14 h-14 bg-primary text-white rounded-full shadow-lg border-4 border-white">
+                <i class="sicon-shopping-bag text-xl"></i>
+                {% if cart.items_count > 0 %}
+                    <span class="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-white"></span>
+                {% endif %}
+            </a>
+        </div>
+        
+        <a href="{{ link('wishlist') }}" class="flex flex-col items-center justify-center text-gray-400 hover:text-primary">
+            <i class="sicon-heart text-xl mb-1"></i>
+            <span class="text-[10px] font-medium">{{ trans('common.wishlist') }}</span>
+        </a>
+        
+        <a href="{{ link('profile') }}" class="flex flex-col items-center justify-center text-gray-400 hover:text-primary">
+            <i class="sicon-user text-xl mb-1"></i>
+            <span class="text-[10px] font-medium">{{ trans('common.account') }}</span>
+        </a>
+    </div>
+</div>

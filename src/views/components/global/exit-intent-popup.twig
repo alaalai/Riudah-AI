@@ -1,0 +1,73 @@
+{# 
+  Component: Exit Intent Popup
+  Description: Popup when cursor leaves window.
+  Placement: Global
+#}
+<div 
+    id="exit-popup"
+    class="fixed inset-0 z-[60] flex items-center justify-center p-4 invisible opacity-0 transition-all duration-300"
+    style="display: none;"
+>
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeExitPopup()"></div>
+    
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg relative overflow-hidden transform scale-90 transition-transform duration-300">
+        <button onclick="closeExitPopup()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-900 z-10">
+            <i class="sicon-cancel text-xl"></i>
+        </button>
+        
+        <div class="flex flex-col md:flex-row">
+            <div class="md:w-2/5 bg-gray-100 relative min-h-[200px]">
+                <img src="{{ 'images/exit-offer.jpg' | asset }}" class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            
+            <div class="p-8 md:w-3/5 text-center md:text-left">
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ trans('common.wait_dont_go') }}</h3>
+                <p class="text-gray-500 text-sm mb-6">{{ trans('common.exit_offer_text') }}</p>
+                
+                <div class="bg-yellow-50 border border-yellow-100 border-dashed rounded-lg p-3 mb-6">
+                    <p class="text-xs text-yellow-700 font-bold uppercase tracking-wider mb-1">{{ trans('common.use_code') }}</p>
+                    <p class="text-xl font-mono font-bold text-gray-900">COMEBACK10</p>
+                </div>
+                
+                <button class="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-primary-dark transition-colors shadow-lg">
+                    {{ trans('common.claim_discount') }}
+                </button>
+                
+                <button onclick="closeExitPopup()" class="mt-4 text-xs text-gray-400 hover:text-gray-600 underline">
+                    {{ trans('common.no_thanks') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let exitIntentShown = false;
+    
+    const showExitPopup = () => {
+        if (exitIntentShown) return;
+        const popup = document.getElementById('exit-popup');
+        popup.style.display = 'flex';
+        // Small delay to allow display:flex to apply before opacity transition
+        setTimeout(() => {
+            popup.classList.remove('invisible', 'opacity-0');
+            popup.querySelector('div.transform').classList.remove('scale-90');
+        }, 10);
+        exitIntentShown = true;
+    };
+    
+    const closeExitPopup = () => {
+        const popup = document.getElementById('exit-popup');
+        popup.classList.add('invisible', 'opacity-0');
+        popup.querySelector('div.transform').classList.add('scale-90');
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 300);
+    };
+
+    document.addEventListener('mouseleave', (e) => {
+        if (e.clientY < 0) {
+            showExitPopup();
+        }
+    });
+</script>

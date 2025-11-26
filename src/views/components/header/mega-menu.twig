@@ -1,0 +1,74 @@
+{# 
+  Component: Mega Menu
+  Description: Navigation menu with featured images and products.
+  Placement: Header
+#}
+<nav class="mega-menu hidden lg:block border-b border-gray-100">
+    <div class="container">
+        <ul class="flex items-center gap-8">
+            {% for item in menu.items %}
+                <li class="group static py-4">
+                    <a href="{{ item.url }}" class="flex items-center gap-1 font-bold text-gray-800 hover:text-primary transition-colors relative">
+                        {{ item.title }}
+                        {% if item.children|length > 0 %}
+                            <i class="sicon-keyboard-arrow-down text-xs transition-transform group-hover:rotate-180"></i>
+                        {% endif %}
+                        
+                        {# Hover Underline #}
+                        <span class="absolute -bottom-4 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    
+                    {% if item.children|length > 0 %}
+                        <div class="absolute left-0 right-0 top-full bg-white shadow-xl border-t border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-40 transform translate-y-2 group-hover:translate-y-0">
+                            <div class="container py-8">
+                                <div class="grid grid-cols-12 gap-8">
+                                    {# Subcategories #}
+                                    <div class="col-span-3">
+                                        <h4 class="font-bold text-gray-900 mb-4 border-b border-gray-100 pb-2">{{ item.title }}</h4>
+                                        <ul class="space-y-2">
+                                            {% for child in item.children %}
+                                                <li>
+                                                    <a href="{{ child.url }}" class="text-gray-600 hover:text-primary hover:translate-x-1 transition-all inline-block">
+                                                        {{ child.title }}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    
+                                    {# Featured Collections #}
+                                    <div class="col-span-6 grid grid-cols-2 gap-4">
+                                        <a href="#" class="relative rounded-xl overflow-hidden group h-48">
+                                            <img src="{{ 'images/menu-banner-1.jpg' | asset }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                                            <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                                <span class="text-white font-bold text-xl border-b-2 border-white pb-1">New Arrivals</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="relative rounded-xl overflow-hidden group h-48">
+                                            <img src="{{ 'images/menu-banner-2.jpg' | asset }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                                            <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                                <span class="text-white font-bold text-xl border-b-2 border-white pb-1">Best Sellers</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    
+                                    {# Featured Product #}
+                                    <div class="col-span-3">
+                                        <h4 class="font-bold text-gray-900 mb-4">{{ trans('common.featured') }}</h4>
+                                        <div class="bg-gray-50 rounded-xl p-4 group cursor-pointer">
+                                            <div class="aspect-square rounded-lg overflow-hidden mb-3">
+                                                <img src="{{ 'images/product-placeholder.jpg' | asset }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                            </div>
+                                            <h5 class="font-bold text-sm text-gray-900 mb-1">Premium Collection Item</h5>
+                                            <p class="text-primary font-bold">$199.00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</nav>
