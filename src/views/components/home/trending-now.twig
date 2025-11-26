@@ -1,41 +1,33 @@
 {# 
   Component: Trending Now
-  Description: Grid of top selling products to guide indecisive users.
-  Placement: Homepage
+  Description: Scrolling ticker of trending products.
 #}
-<section class="trending-now py-16">
-    <div class="container">
-        <div class="text-center mb-10">
-            <span class="text-primary font-bold text-sm uppercase tracking-widest">{{ trans('blocks.trending.subtitle') }}</span>
-            <h2 class="text-3xl font-bold text-gray-900 mt-2">{{ trans('blocks.trending.title') }}</h2>
-        </div>
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {% for product in products|sort((a, b) => b.sales_count - a.sales_count)|slice(0, 4) %}
-                <div class="product-card group relative">
-                    {# Rank Badge #}
-                    <div class="absolute top-0 left-0 bg-black text-white w-8 h-8 flex items-center justify-center font-bold text-sm z-10">
-                        #{{ loop.index }}
-                    </div>
-                    
-                    <div class="aspect-[3/4] overflow-hidden rounded-lg mb-4 bg-gray-100">
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        
-                        {# Quick Actions #}
-                        <div class="absolute bottom-4 left-4 right-4 flex gap-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                            <button class="flex-1 bg-white text-black py-2 rounded shadow-lg font-bold text-sm hover:bg-black hover:text-white transition-colors">
-                                {{ trans('pages.cart.add_to_cart') }}
-                            </button>
-                            <button class="w-10 bg-white text-black rounded shadow-lg flex items-center justify-center hover:text-red-500 transition-colors">
-                                <i class="sicon-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <h3 class="font-bold text-gray-900 mb-1 group-hover:text-primary transition-colors">{{ product.name }}</h3>
-                    <p class="text-gray-500 text-sm">{{ product.price|money }}</p>
+<section class="py-4 bg-black text-white overflow-hidden">
+    <div class="flex gap-8 animate-marquee whitespace-nowrap">
+        {% for i in 0..1 %}
+            {% for product in products|slice(0, 5) %}
+                <div class="flex items-center gap-4 mx-4">
+                    <span class="text-yellow-400 font-bold uppercase tracking-wider text-xs">🔥 {{ trans('common.trending') }}</span>
+                    <a href="{{ product.url }}" class="flex items-center gap-3 hover:text-gray-300 transition">
+                        <img src="{{ product.image.url }}" class="w-8 h-8 rounded object-cover border border-white/20">
+                        <span class="font-bold text-sm">{{ product.name }}</span>
+                        <span class="text-xs bg-white/20 px-2 py-0.5 rounded">{{ product.sale_price|money }}</span>
+                    </a>
                 </div>
             {% endfor %}
-        </div>
+        {% endfor %}
     </div>
 </section>
+
+<style>
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+    animation: marquee 30s linear infinite;
+}
+.animate-marquee:hover {
+    animation-play-state: paused;
+}
+</style>

@@ -16,55 +16,87 @@
 | main_product.product     | Product   |                                                                     |
 | position                 | int       | sorting block                                                       |
 #}
-{% set component_id='featured-products-style1-' ~ position %}
-<section class="s-block s-block-tabs s-block--special-products container" id="{{ component_id }}">
-    <div class="s-block__title"> 
-      <div class="right-side">
-        <h2>{{ main_product.title }}</h2>
-      </div>
-      {% if items|length > 1 %}
-      <div class="tabs hide-scroll hidden lg:flex">
-          {% for section in items %}
-              <salla-button shape="link"
-                      data-target="{{ component_id }}-{{ section.id }}"
-                      data-component-id="{{ component_id }}"
-                      class="tab-trigger {{ loop.first?'is-active' : '' }}">
-                  {{ section.title }}
-              </salla-button>
-          {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-
-    <div class="grid grid-cols-1 {{ main_product?'lg:grid-cols-2':''}} gap-8">
-        {% if main_product %}
-            <div class="flex flex-col">
-                <custom-salla-product-card shadow-on-hover product="{{main_product.product}}" isSpecial></custom-salla-product-card>  
+{#
+| Variable                 | Type      | Description                                                         |
+|--------------------------|-----------|---------------------------------------------------------------------|
+| items                    | array     |                                                                     |
+| items[].title            | string    | Section title                                                       |
+| products                 | Product[] |                                                                     |
+#}
+<section class="py-16 bg-white">
+    <div class="container">
+        <div class="flex justify-between items-end mb-10">
+            <div>
+                <span class="text-primary font-bold text-sm uppercase tracking-widest">{{ trans('common.just_in') }}</span>
+                <h2 class="text-3xl font-bold text-gray-900 mt-2">{{ title|default(trans('pages.titles.new_arrivals')) }}</h2>
             </div>
-        {% endif %}
-        <div class="flex flex-col">
-            {% if items|length > 1 %}
-            <div class="tabs mb-4 sm:mb-8 hide-scroll lg:hidden">
-                {% for section in items %}
-                    <salla-button shape="link"
-                            data-target="{{ component_id }}-{{ section.id }}"
-                            data-component-id="{{ component_id }}"
-                            class="tab-trigger {{ loop.first?'is-active':'' }}">
-                        {{ section.title }}
-                    </salla-button> 
-                {% endfor %}
-            </div>
-            {% endif %}
+            <a href="{{ link('/products') }}" class="group flex items-center gap-2 font-bold text-gray-900 hover:text-primary transition-colors">
+                {{ trans('common.view_all') }}
+                <i class="sicon-arrow-left group-hover:-translate-x-1 transition-transform rtl:rotate-180"></i>
+            </a>
+        </div>
 
-            <div class="tabs-wrapper flex flex-1">
-                {% for section in items %}
-                    <div id="{{ component_id }}-{{ section.id }}" class="tabs__item grid-cols-2 {{ main_product?'':'lg:grid-cols-4'}} {{ loop.first?'is-active':'' }}">
-                        {% for product in section.products|slice(0,main_product?4:8) %}
-                            <custom-salla-product-card product="{{product}}"></custom-salla-product-card>
-                        {% endfor %}
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
+            {% for product in products %}
+                <div class="group relative">
+                    {# Image #}
+                    <div class="aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 mb-4 relative">
+                        <a href="{{ product.url }}" class="block w-full h-full">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            {% if product.image_hover %}
+                                <img src="{{ product.image_hover.url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            {% endif %}
+                        </a>
+
+                        {# Badges #}
+                        <div class="absolute top-3 left-3 flex flex-col gap-2">
+                            {% if product.is_on_sale %}
+                                <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                                    -{{ product.discount_percentage }}%
+                                </span>
+                            {% endif %}
+                            {% if product.is_new %}
+                                <span class="bg-black text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                                    {{ trans('common.new') }}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        {# Quick Actions #}
+                        <div class="absolute bottom-4 left-4 right-4 flex gap-2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                            <salla-add-product-button product-id="{{ product.id }}" class="flex-1 btn btn-white shadow-lg text-xs font-bold">
+                                {{ trans('pages.cart.add_to_cart') }}
+                            </salla-add-product-button>
+                            <button class="w-10 h-10 bg-white rounded-lg shadow-lg flex items-center justify-center hover:text-red-500 transition-colors" onclick="salla.wishlist.toggle({{ product.id }})">
+                                <i class="sicon-heart"></i>
+                            </button>
+                        </div>
                     </div>
-                {% endfor %}
-            </div>
+
+                    {# Info #}
+                    <div>
+                        <h3 class="font-bold text-gray-900 mb-1 truncate group-hover:text-primary transition-colors">
+                            <a href="{{ product.url }}">{{ product.name }}</a>
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            {% if product.is_on_sale %}
+                                <span class="text-red-600 font-bold">{{ product.sale_price|money }}</span>
+                                <span class="text-gray-400 text-sm line-through">{{ product.regular_price|money }}</span>
+                            {% else %}
+                                <span class="font-bold text-gray-900">{{ product.price|money }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        {# Rating #}
+                        {% if product.rating %}
+                            <div class="flex items-center gap-1 mt-1">
+                                <i class="sicon-star-fill text-yellow-400 text-xs"></i>
+                                <span class="text-xs text-gray-500 font-bold">{{ product.rating|number_format(1) }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
-</section> 
+</section>

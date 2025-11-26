@@ -281,6 +281,10 @@
                             </salla-button>
                             {% hook 'cart:submit.end' %}
                         </div>
+                        
+                        {# CRO: Trust Badges #}
+                        {% include 'views.components.cart.cart-trust-badges' %}
+
                         {% hook 'cart:summary.end' %}
                     </div>
 
@@ -290,6 +294,9 @@
             {% endif %}
         </div>
     </div>
+    
+    {# CRO: Exit Intent Popup #}
+    {% include 'views.components.cart.exit-intent-popup' %}
 {% endblock %}
 
 {% block scripts %}

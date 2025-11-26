@@ -1,62 +1,88 @@
-<header class="w-full bg-white shadow sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+{% component 'header.announcement-bar' %}
 
-        {# Logo #}
-        <a href="{{ store.url }}" class="flex items-center gap-2">
-            {% if store.logo %}
-                <img src="{{ store.logo }}" alt="{{ store.name }}" class="h-10 w-auto">
-            {% else %}
-                <span class="text-xl font-bold">{{ store.name }}</span>
-            {% endif %}
-        </a>
+<header class="w-full bg-white shadow-sm transition-all duration-300 z-40 group" 
+        :class="{ 'sticky top-0 shadow-md': window.scrollY > 0 }"
+        id="main-header">
+    
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between gap-8">
 
-        {# Desktop Navigation #}
-        <nav class="hidden md:flex items-center gap-6 text-gray-700">
-            {% for category in categories %}
-                <a href="{{ category.url }}" class="hover:text-primary transition">
-                    {{ category.name }}
+            {# Logo #}
+            <div class="flex-shrink-0">
+                <a href="{{ store.url }}" class="block">
+                    {% if store.logo %}
+                        <img src="{{ store.logo }}" alt="{{ store.name }}" class="h-10 md:h-12 w-auto object-contain">
+                    {% else %}
+                        <span class="text-xl md:text-2xl font-bold text-gray-900">{{ store.name }}</span>
+                    {% endif %}
                 </a>
-            {% endfor %}
-        </nav>
+            </div>
 
-        {# Icons #}
-        <div class="flex items-center gap-4">
+            {# Search (Desktop) #}
+            <div class="hidden md:block flex-1 max-w-2xl">
+                {% component 'header.predictive-search' %}
+            </div>
 
-            {# Search #}
-            <a href="/search" class="hover:text-primary">
-                <i class="sicon-search text-xl"></i>
-            </a>
+            {# Icons #}
+            <div class="flex items-center gap-4 md:gap-6">
 
-            {# User #}
-            <a href="/account" class="hover:text-primary">
-                <i class="sicon-user text-xl"></i>
-            </a>
+                {# Mobile Search Toggle #}
+                <button class="md:hidden text-2xl text-gray-700 hover:text-primary" onclick="document.querySelector('.mobile-search').classList.toggle('hidden')">
+                    <i class="sicon-search"></i>
+                </button>
 
-            {# Cart #}
-            <a href="/cart" class="relative hover:text-primary">
-                <i class="sicon-cart text-xl"></i>
+                {# User #}
+                <div class="relative group/user hidden md:block">
+                    <a href="{{ link('/account') }}" class="flex items-center gap-2 text-gray-700 hover:text-primary transition">
+                        <div class="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-xl">
+                            <i class="sicon-user"></i>
+                        </div>
+                        <div class="text-sm hidden lg:block">
+                            <span class="block text-xs text-gray-500">{{ trans('common.hello') }}</span>
+                            <span class="font-bold">{{ user.first_name|default(trans('common.guest')) }}</span>
+                        </div>
+                    </a>
+                    {# Dropdown could go here #}
+                </div>
 
-                {% if cart.count > 0 %}
-                    <span class="absolute -top-2 -right-2 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-                        {{ cart.count }}
-                    </span>
-                {% endif %}
-            </a>
+                {# Wishlist #}
+                <a href="{{ link('/wishlist') }}" class="hidden md:flex relative text-2xl text-gray-700 hover:text-primary transition">
+                    <i class="sicon-heart"></i>
+                </a>
 
-            {# Mobile Menu Button #}
-            <button id="menuBtn" class="md:hidden text-2xl">
-                <i class="sicon-menu"></i>
-            </button>
+                {# Cart #}
+                <a href="{{ link('/cart') }}" class="relative text-gray-700 hover:text-primary transition group/cart">
+                    <div class="text-2xl">
+                        <i class="sicon-shopping-bag"></i>
+                    </div>
+                    {% if cart.count > 0 %}
+                        <span class="absolute -top-1 -right-1 bg-primary text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white animate-bounce-short">
+                            {{ cart.count }}
+                        </span>
+                    {% endif %}
+                    <span class="hidden lg:block text-xs font-bold mt-1">{{ cart.total|money }}</span>
+                </a>
+
+                {# Mobile Menu Button #}
+                <button id="menuBtn" class="md:hidden text-2xl text-gray-700 hover:text-primary transition-colors" 
+                        @click="$store.app.toggleMobileMenu()">
+                    <i class="sicon-menu"></i>
+                </button>
+            </div>
         </div>
-
     </div>
 
-    {# Mobile Menu #}
-    <div id="mobileMenu" class="hidden md:hidden bg-white shadow border-t">
-        {% for category in categories %}
-            <a href="{{ category.url }}" class="block py-3 px-4 border-b hover:bg-gray-100">
-                {{ category.name }}
-            </a>
-        {% endfor %}
+    {# Desktop Mega Menu #}
+    <div class="hidden md:block border-t border-gray-100">
+        {% component 'header.mega-menu' with {'menu': {'items': categories}} %}
     </div>
+
+    {# Mobile Search Bar (Hidden by default) #}
+    <div class="mobile-search hidden md:hidden p-4 border-t border-gray-100 bg-gray-50">
+        {% component 'header.predictive-search' %}
+    </div>
+
+    {# Mobile Menu Drawer #}
+    {% component 'header.mobile-menu' with {'categories': categories} %}
 </header>
+

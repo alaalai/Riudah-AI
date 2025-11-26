@@ -6,9 +6,45 @@
 | page.slug        | string     | ex: "cat.show"                                                      |
 #}
 {% extends "layouts.master" %}
+
 {% block content %}
-    {% component home %}
+    {# 1. Hero Section #}
+    {% component 'home.enhanced-slider' %}
+
+    {# 2. USP / Trust Badges #}
+    {% component 'home.store-features' %}
+
+    {# 3. Trending Ticker #}
+    {% component 'home.trending-now' %}
+
+    {# 4. Flash Sale #}
+    {% component 'home.flash-sale' %}
+
+    {# 5. Top Categories (New Component) #}
+    {% component 'home.top-categories' %}
+
+    {# 6. New Arrivals (Featured Products) #}
+    {% component 'home.featured-products-style1' with {'title': trans('pages.titles.new_arrivals'), 'products': products|slice(0, 8)} %}
+
+    {# 7. Promotional Banner (Video or Image) #}
+    {% component 'home.fixed-banner' %}
+
+    {# 8. Best Sellers #}
+    {% component 'home.featured-products-style2' with {'title': trans('pages.titles.best_sellers'), 'products': products|slice(8, 8)} %}
+
+    {# 9. Testimonials #}
+    {% component 'home.testimonials-slider' %}
+
+    {# 10. Brands #}
+    {% component 'home.brands' %}
+
+    {# 11. Instagram / UGC #}
+    {% component 'home.ugc-gallery' %}
+
+    {# 12. SEO Text / Description #}
+    {% component 'home.our-story' %}
 {% endblock %}
+
 {% block scripts %}
     <script defer src="{{ 'home.js' | asset }}"></script>
 {% endblock %}

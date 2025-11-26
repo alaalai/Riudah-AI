@@ -1,44 +1,30 @@
 {# 
   Component: UGC Gallery
-  Description: Grid of customer photos from Instagram/reviews to show real usage.
-  Placement: Homepage / Product Page
+  Description: User Generated Content / Instagram Feed.
 #}
-<section class="ugc-gallery py-16">
-    <div class="container">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
-            <div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-2">{{ trans('blocks.ugc.title') }}</h2>
-                <p class="text-gray-500">{{ trans('blocks.ugc.subtitle') }}</p>
-            </div>
-            <a href="{{ social.instagram }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full text-sm font-bold text-gray-700 hover:bg-gray-200 transition-colors">
-                <i class="sicon-instagram"></i>
-                {{ trans('blocks.ugc.follow_us') }}
-            </a>
-        </div>
+<section class="py-16 overflow-hidden">
+    <div class="container mb-10 text-center">
+        <i class="sicon-instagram text-4xl mb-2 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 bg-clip-text text-transparent"></i>
+        <h2 class="text-2xl font-bold">@{{ store.username }}</h2>
+        <p class="text-gray-500">{{ trans('common.follow_us') }}</p>
+    </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {% for image in ugc_images|slice(0, 4) %}
-                <div class="group relative aspect-square overflow-hidden rounded-xl cursor-pointer">
-                    <img src="{{ image.url }}" alt="Customer photo" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
-                    
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <i class="sicon-instagram text-white text-3xl"></i>
-                    </div>
-                    
-                    {# Product Tag #}
-                    {% if image.product %}
-                        <div class="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-sm p-2 rounded-lg transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                            <div class="flex items-center gap-2">
-                                <img src="{{ image.product.image }}" class="w-8 h-8 rounded object-cover">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-xs font-bold text-gray-900 truncate">{{ image.product.name }}</p>
-                                    <p class="text-xs text-primary">{{ image.product.price|money }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
+    <div class="flex flex-wrap md:flex-nowrap">
+        {% for i in 1..6 %}
+            <div class="w-1/2 md:w-1/6 aspect-square relative group overflow-hidden border border-white">
+                <img src="{{ 'images/ugc-' ~ i ~ '.jpg' | asset }}" onerror="this.src='https://via.placeholder.com/400?text=Instagram+Post'" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 text-white">
+                    <span class="flex items-center gap-1"><i class="sicon-heart-fill"></i> 12{{ i }}</span>
+                    <span class="flex items-center gap-1"><i class="sicon-chat-conversation-alt"></i> 4{{ i }}</span>
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <div class="text-center mt-8">
+        <a href="{{ store.social.instagram }}" target="_blank" class="btn btn-outline-primary min-w-[200px]">
+            {{ trans('common.follow_on_instagram') }}
+        </a>
     </div>
 </section>

@@ -1,0 +1,24 @@
+{# 
+  Component: Cart Trust Badges
+  Description: Trust badges for the cart sidebar.
+  Placement: Below Checkout Button
+#}
+<div class="cart-trust-badges mt-6 text-center">
+    <div class="flex flex-col gap-2 mb-4">
+        <div class="flex items-center justify-center gap-2 text-xs text-gray-500">
+            <i class="sicon-shield-check text-green-500"></i>
+            <span>{{ trans('common.money_back_guarantee') }}</span>
+        </div>
+        <div class="flex items-center justify-center gap-2 text-xs text-gray-500">
+            <i class="sicon-lock text-blue-500"></i>
+            <span>{{ trans('common.secure_checkout') }}</span>
+        </div>
+    </div>
+    
+    <div class="flex justify-center gap-2 grayscale opacity-70">
+        <img src="{{ 'images/payment/visa.svg' | asset }}" class="h-5 w-auto">
+        <img src="{{ 'images/payment/mastercard.svg' | asset }}" class="h-5 w-auto">
+        <img src="{{ 'images/payment/mada.svg' | asset }}" class="h-5 w-auto">
+        <img src="{{ 'images/payment/apple-pay.svg' | asset }}" class="h-5 w-auto">
+    </div>
+</div>

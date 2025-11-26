@@ -1,0 +1,76 @@
+{# 
+  Component: Exit Intent Popup
+  Description: Popup that appears when user tries to leave the site.
+  Placement: Global or Cart/Checkout
+#}
+<div x-data="exitIntent()" x-show="open" 
+     class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+     x-transition:enter="transition ease-out duration-300"
+     x-transition:enter-start="opacity-0"
+     x-transition:enter-end="opacity-100"
+     style="display: none;">
+    
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg relative overflow-hidden text-center p-8"
+         @click.away="closePopup()">
+        
+        <button @click="closePopup()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-900">
+            <i class="sicon-cancel text-xl"></i>
+        </button>
+
+        <div class="mb-6">
+            <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="sicon-gift text-4xl text-red-500"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">{{ trans('common.wait_dont_go') }}</h2>
+            <p class="text-gray-600">{{ trans('common.exit_intent_message') }}</p>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-4 mb-6 border border-dashed border-gray-300">
+            <p class="text-sm text-gray-500 mb-1">{{ trans('common.use_code') }}</p>
+            <div class="text-2xl font-bold text-primary tracking-wider" @click="copyCode('SAVE10')">
+                SAVE10
+                <i class="sicon-copy text-gray-400 text-sm ml-2 cursor-pointer hover:text-primary"></i>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-3">
+            <button @click="closePopup()" class="bg-primary text-white py-3 rounded-xl font-bold hover:bg-primary-dark transition-colors shadow-lg shadow-primary/30">
+                {{ trans('common.claim_discount') }}
+            </button>
+            <button @click="closePopup()" class="text-gray-400 text-sm hover:text-gray-600">
+                {{ trans('common.no_thanks') }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function exitIntent() {
+    return {
+        open: false,
+        shown: false,
+        init() {
+            // Check if already shown in session
+            if (sessionStorage.getItem('exit_intent_shown')) {
+                this.shown = true;
+                return;
+            }
+
+            document.addEventListener('mouseleave', (e) => {
+                if (e.clientY < 0 && !this.shown) {
+                    this.open = true;
+                    this.shown = true;
+                    sessionStorage.setItem('exit_intent_shown', 'true');
+                }
+            });
+        },
+        closePopup() {
+            this.open = false;
+        },
+        copyCode(code) {
+            navigator.clipboard.writeText(code);
+            salla.notify.success('{{ trans("common.code_copied") }}');
+        }
+    }
+}
+</script>

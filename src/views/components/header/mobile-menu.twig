@@ -1,0 +1,133 @@
+<div id="mobileMenu" 
+     class="fixed inset-0 z-50 transform transition-transform duration-300 translate-x-full"
+     :class="{ 'translate-x-0': mobileMenuOpen, 'translate-x-full': !mobileMenuOpen }"
+     x-data="{ mobileMenuOpen: false }"
+     @keydown.escape.window="mobileMenuOpen = false"
+     style="display: none;" 
+     x-show="true"
+     x-init="$watch('$store.app.mobileMenuOpen', value => mobileMenuOpen = value)">
+    
+    {# Backdrop #}
+    <div class="absolute inset-0 bg-black/50 transition-opacity duration-300"
+         :class="{ 'opacity-100': mobileMenuOpen, 'opacity-0': !mobileMenuOpen }"
+         @click="mobileMenuOpen = false"></div>
+
+    {# Drawer #}
+    <div class="absolute top-0 right-0 bottom-0 w-[85%] max-w-sm bg-white shadow-xl flex flex-col transition-transform duration-300 delay-75"
+         :class="{ 'translate-x-0': mobileMenuOpen, 'translate-x-full': !mobileMenuOpen }">
+        
+        {# Header #}
+        <div class="p-5 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+            <span class="font-bold text-lg text-gray-900">{{ trans('common.menu') }}</span>
+            <button @click="mobileMenuOpen = false" class="w-8 h-8 flex items-center justify-center rounded-full bg-white text-gray-500 hover:text-red-500 shadow-sm transition-colors">
+                <i class="sicon-cancel"></i>
+            </button>
+        </div>
+
+        {# Content #}
+        <div class="flex-1 overflow-y-auto p-5">
+            {# User Section #}
+            <div class="mb-8 p-4 bg-gray-50 rounded-xl border border-gray-100">
+                {% if user.type == 'guest' %}
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-400 shadow-sm">
+                            <i class="sicon-user text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">{{ trans('common.welcome_guest') }}</p>
+                            <div class="flex gap-2 text-sm font-bold text-primary">
+                                <a href="{{ link('/login') }}">{{ trans('blocks.header.login') }}</a>
+                                <span class="text-gray-300">|</span>
+                                <a href="{{ link('/register') }}">{{ trans('blocks.header.register') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{{ link('/account') }}" class="flex items-center gap-4">
+                        <img src="{{ user.avatar|default('images/avatar.png'|asset) }}" class="w-12 h-12 rounded-full border-2 border-white shadow-sm object-cover">
+                        <div>
+                            <p class="text-sm text-gray-500">{{ trans('common.hello') }}</p>
+                            <p class="font-bold text-gray-900">{{ user.first_name }}</p>
+                        </div>
+                    </a>
+                {% endif %}
+            </div>
+
+            {# Navigation #}
+            <nav class="space-y-1">
+                <a href="{{ link('/') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-gray-700 font-medium transition-colors">
+                    <i class="sicon-home text-gray-400"></i>
+                    {{ trans('common.home') }}
+                </a>
+
+                {% for category in categories %}
+                    <div x-data="{ open: false }" class="border-b border-gray-50 last:border-0">
+                        <div class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <a href="{{ category.url }}" class="flex items-center gap-3 text-gray-800 font-medium flex-1">
+                                {% if category.icon %}
+                                    <img src="{{ category.icon }}" class="w-5 h-5 object-contain opacity-60">
+                                {% else %}
+                                    <i class="sicon-layout-grid text-gray-400"></i>
+                                {% endif %}
+                                {{ category.name }}
+                            </a>
+                            {% if category.children|length > 0 %}
+                                <button @click="open = !open" class="p-1 text-gray-400 hover:text-primary">
+                                    <i class="sicon-keyboard-arrow-down transition-transform duration-300" :class="{'rotate-180': open}"></i>
+                                </button>
+                            {% endif %}
+                        </div>
+                        
+                        {% if category.children|length > 0 %}
+                            <div x-show="open" x-collapse class="pl-11 pr-3 pb-3 space-y-2">
+                                {% for child in category.children %}
+                                    <a href="{{ child.url }}" class="block text-sm text-gray-500 hover:text-primary py-1">
+                                        {{ child.name }}
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <a href="{{ link('/offers') }}" class="flex items-center gap-3 p-3 rounded-lg hover:bg-red-50 text-red-600 font-medium transition-colors mt-4">
+                    <i class="sicon-discount"></i>
+                    {{ trans('common.offers') }}
+                </a>
+            </nav>
+        </div>
+
+        {# Footer #}
+        <div class="p-5 border-t border-gray-100 bg-gray-50">
+            <div class="grid grid-cols-2 gap-4">
+                <a href="{{ link('/wishlist') }}" class="flex flex-col items-center justify-center p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <i class="sicon-heart text-2xl text-gray-400 mb-1"></i>
+                    <span class="text-xs font-medium text-gray-600">{{ trans('common.wishlist') }}</span>
+                </a>
+                <a href="{{ link('/cart') }}" class="flex flex-col items-center justify-center p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <i class="sicon-shopping-bag text-2xl text-gray-400 mb-1"></i>
+                    <span class="text-xs font-medium text-gray-600">{{ trans('blocks.header.cart') }}</span>
+                </a>
+            </div>
+            
+            {# Language/Currency if needed #}
+            <div class="mt-6 flex justify-center gap-6 text-gray-400">
+                <a href="#" class="hover:text-gray-600"><i class="sicon-facebook"></i></a>
+                <a href="#" class="hover:text-gray-600"><i class="sicon-instagram"></i></a>
+                <a href="#" class="hover:text-gray-600"><i class="sicon-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Simple event bus for mobile menu
+    document.addEventListener('alpine:init', () => {
+        Alpine.store('app', {
+            mobileMenuOpen: false,
+            toggleMobileMenu() {
+                this.mobileMenuOpen = !this.mobileMenuOpen;
+            }
+        });
+    });
+</script>

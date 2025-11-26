@@ -1,22 +1,46 @@
 {#
-| Variable      | Type   | Description                                                      |
-|---------------|--------|------------------------------------------------------------------|
-| items[]       | array  | List of 3 features                                               |
-| items[].icon  | string | SallaIcons css class `sicon-*`                                   |
-| items[].title | string | Title of the feature                                             |
-| items[].text  | string | Subtitle for the feature                                         |
-| position      | Int    | Sorting number start from zero                                   |
+{# 
+  Component: Store Features (USP)
+  Description: Highlights key store benefits.
 #}
-<section class="s-block s-block--features container">
-    <div class="grid grid-cols-[repeat(2,minmax(0,1fr))] md:grid-cols-[repeat(3,minmax(0,1fr))] gap-4 sm:gap-6 xl:gap-8">
-      {% for item in items %}
-          <div class="s-block--features__item">
-            <div class="feature-icon">
-              <i class="{{ item.icon }}"></i>
+<section class="py-10 border-b border-gray-100 bg-white">
+    <div class="container">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {# Feature 1 #}
+            <div class="flex flex-col items-center text-center group">
+                <div class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <i class="sicon-shipping-fast text-3xl text-primary group-hover:text-white transition-colors"></i>
+                </div>
+                <h3 class="font-bold text-gray-900 mb-1">{{ trans('common.fast_shipping') }}</h3>
+                <p class="text-sm text-gray-500">{{ trans('common.fast_shipping_desc') }}</p>
             </div>
-            <h2>{{ item.title }}</h2>
-            <p>{{ item.text }}</p>
-          </div>
-      {% endfor %}
+
+            {# Feature 2 #}
+            <div class="flex flex-col items-center text-center group">
+                <div class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <i class="sicon-security-check text-3xl text-primary group-hover:text-white transition-colors"></i>
+                </div>
+                <h3 class="font-bold text-gray-900 mb-1">{{ trans('common.secure_payment') }}</h3>
+                <p class="text-sm text-gray-500">{{ trans('common.secure_payment_desc') }}</p>
+            </div>
+
+            {# Feature 3 #}
+            <div class="flex flex-col items-center text-center group">
+                <div class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <i class="sicon-headphones text-3xl text-primary group-hover:text-white transition-colors"></i>
+                </div>
+                <h3 class="font-bold text-gray-900 mb-1">{{ trans('common.24_7_support') }}</h3>
+                <p class="text-sm text-gray-500">{{ trans('common.support_desc') }}</p>
+            </div>
+
+            {# Feature 4 #}
+            <div class="flex flex-col items-center text-center group">
+                <div class="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <i class="sicon-rotate-left text-3xl text-primary group-hover:text-white transition-colors"></i>
+                </div>
+                <h3 class="font-bold text-gray-900 mb-1">{{ trans('common.easy_returns') }}</h3>
+                <p class="text-sm text-gray-500">{{ trans('common.returns_desc') }}</p>
+            </div>
+        </div>
     </div>
 </section>

@@ -1,0 +1,25 @@
+{# 
+  Component: Top Categories
+  Description: Grid of top categories with images.
+  Placement: Homepage
+#}
+<section class="py-12 bg-gray-50">
+    <div class="container">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">{{ trans('pages.titles.browse_categories') }}</h2>
+            <p class="text-gray-500">{{ trans('pages.titles.browse_categories_subtitle') }}</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {% for category in categories|slice(0, 6) %}
+                <a href="{{ category.url }}" class="group block text-center">
+                    <div class="relative rounded-full aspect-square overflow-hidden mb-4 border-4 border-white shadow-md group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2">
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+                    </div>
+                    <h3 class="font-bold text-gray-900 group-hover:text-primary transition-colors">{{ category.name }}</h3>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>

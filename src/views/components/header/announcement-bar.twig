@@ -1,0 +1,36 @@
+{# 
+  Component: Announcement Bar
+  Description: Top bar for USPs and announcements.
+  Placement: Above Header
+#}
+{% if theme.settings.get('announcement_bar_enabled', true) %}
+<div class="bg-black text-white text-xs py-2 text-center relative z-50 overflow-hidden">
+    <div class="container">
+        <div class="flex items-center justify-between">
+            <div class="hidden md:flex gap-4 opacity-80">
+                <span><i class="sicon-phone mr-1"></i> {{ store.contacts.mobile }}</span>
+                <span><i class="sicon-mail mr-1"></i> {{ store.contacts.email }}</span>
+            </div>
+            
+            <div class="flex-1 text-center font-bold tracking-wide">
+                <span class="inline-block animate-pulse">
+                    {{ theme.settings.get('announcement_text', 'Free Shipping on Orders Over $100! 🚀') }}
+                </span>
+            </div>
+            
+            <div class="hidden md:flex gap-4 opacity-80">
+                <a href="/pages/track-order" class="hover:text-gray-300 transition">{{ trans('common.track_order') }}</a>
+                <div class="border-l border-white/20 h-4 mx-2"></div>
+                <div class="flex gap-2">
+                    {% if store.social.instagram %}
+                        <a href="{{ store.social.instagram }}" target="_blank"><i class="sicon-instagram"></i></a>
+                    {% endif %}
+                    {% if store.social.twitter %}
+                        <a href="{{ store.social.twitter }}" target="_blank"><i class="sicon-twitter"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
