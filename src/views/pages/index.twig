@@ -1,48 +1,40 @@
-{#
-| Variable         | Type       | Description                                                         |
-|------------------|------------|---------------------------------------------------------------------|
-| page             | object     |                                                                     |
-| page.title       | string     | *could be html                                                      |
-| page.slug        | string     | ex: "cat.show"                                                      |
-#}
 {% extends "layouts.master" %}
 
 {% block content %}
-    {# 1. Hero Section #}
-    {% component 'home.enhanced-slider' %}
 
-    {# 2. USP / Trust Badges #}
-    {% component 'home.store-features' %}
-
-    {# 3. Trending Ticker #}
-    {% component 'home.trending-now' %}
-
-    {# 4. Flash Sale #}
-    {% component 'home.flash-sale' %}
-
-    {# 5. Top Categories (New Component) #}
-    {% component 'home.top-categories' %}
-
-    {# 6. New Arrivals (Featured Products) #}
-    {% component 'home.featured-products-style1' with {'title': trans('pages.titles.new_arrivals'), 'products': products|slice(0, 8)} %}
-
-    {# 7. Promotional Banner (Video or Image) #}
+    {# 1. Fixed Banner (Hero / Main Banner) #}
     {% component 'home.fixed-banner' %}
 
-    {# 8. Best Sellers #}
-    {% component 'home.featured-products-style2' with {'title': trans('pages.titles.best_sellers'), 'products': products|slice(8, 8)} %}
+    {# 2. Store Features (Benefits) #}
+    {% component 'home.store-features' %}
+
+    {# 3. Photos Slider #}
+    {% component 'home.photos-slider' %}
+
+    {# 4. Fixed Products #}
+    {% component 'home.fixed-products' %}
+
+    {# 5. Products Slider #}
+    {% component 'home.products-slider' %}
+
+    {# 6. Featured Products Style 1 #}
+    {% component 'home.featured-products-style1' %}
+
+    {# 7. Featured Products Style 3 #}
+    {% component 'home.featured-products-style3' %}
+
+    {# 8. Latest Products #}
+    {% component 'home.latest-products' %}
 
     {# 9. Testimonials #}
-    {% component 'home.testimonials-slider' %}
+    {% component 'home.testimonials' %}
 
-    {# 10. Brands #}
-    {% component 'home.brands' %}
+    {# 10. Youtube Section #}
+    {% component 'home.youtube' %}
 
-    {# 11. Instagram / UGC #}
-    {% component 'home.ugc-gallery' %}
+    {# 11. Parallax Background #}
+    {% component 'home.parallax-background' %}
 
-    {# 12. SEO Text / Description #}
-    {% component 'home.our-story' %}
 {% endblock %}
 
 {% block scripts %}
